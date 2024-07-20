@@ -684,13 +684,13 @@
                 }
             }
         },
-        "/api/v1/transactions": {
+        "/transactions": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
                 "summary": "List all transactions",
-                "operationId": "bc72f68fad18a7bba1e4ada2397f1e7a",
+                "operationId": "657d9bd3d8fbfc5ab8e07f76c6108ff6",
                 "parameters": [
                     {
                         "name": "type",
@@ -730,7 +730,7 @@
                     "Transactions"
                 ],
                 "summary": "Create a new transaction",
-                "operationId": "af8fde5592c6d2eb321c8b3afb3ecbe4",
+                "operationId": "9a3ef33300de46117a4e7c14bab88ffb",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -795,13 +795,13 @@
                 }
             }
         },
-        "/api/v1/transactions/{id}": {
+        "/transactions/{id}": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
                 "summary": "Get a specific transaction",
-                "operationId": "1cd23c3c39c358bff51a520f2e154e06",
+                "operationId": "9318cdb8487ba541e1ccc5228be6a2a1",
                 "parameters": [
                     {
                         "name": "id",
@@ -850,7 +850,7 @@
                     "Transactions"
                 ],
                 "summary": "Update a specific transaction",
-                "operationId": "a75a7a68cd13ec9da0ddbbb3e056363c",
+                "operationId": "f9f38749bca7ec8f8c5eb9a3ced5c45e",
                 "parameters": [
                     {
                         "name": "id",
@@ -938,7 +938,7 @@
                     "Transactions"
                 ],
                 "summary": "Delete a specific transaction",
-                "operationId": "4fce39aa4c7c61d2c873782cf306a435",
+                "operationId": "fbd42f3c2f84d2b4558863d0706b819f",
                 "parameters": [
                     {
                         "name": "id",
