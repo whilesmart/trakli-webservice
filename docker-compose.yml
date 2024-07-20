@@ -6,13 +6,12 @@ services:
         command: bash -c "
             apt update -y
             && apt install git -y
-            && tail -f /dev/null
-            "
+            && tail -f /dev/null"
         tty: true
         environment:
             DISABLE_AUTORUN_COMPOSER_INSTALL: 1
-            MAINTAINER: 'folks@whilesmart.com'
-            APP_USER: 'folks'
+            MAINTAINER: 'trakli@whilesmart.com'
+            APP_USER: 'trakli'
         volumes:
             - '.:/var/www/html'
             - '~/.ssh:/root/.ssh:ro'
@@ -20,6 +19,7 @@ services:
             - sail
         depends_on:
             - mysql
+
     mysql:
         image: 'mysql:8.0'
         ports:
