@@ -14,7 +14,7 @@ use OpenApi\Attributes as OA;
 class TransactionController extends ApiController
 {
     #[OA\Get(
-        path: '/api/v1/transactions',
+        path: '/transactions',
         summary: 'List all transactions',
         tags: ['Transactions'],
         parameters: [
@@ -56,7 +56,7 @@ class TransactionController extends ApiController
     }
 
     #[OA\Post(
-        path: '/api/v1/transactions',
+        path: '/transactions',
         summary: 'Create a new transaction',
         tags: ['Transactions'],
         requestBody: new OA\RequestBody(
@@ -111,7 +111,7 @@ class TransactionController extends ApiController
     }
 
     #[OA\Get(
-        path: '/api/v1/transactions/{id}',
+        path: '/transactions/{id}',
         summary: 'Get a specific transaction',
         tags: ['Transactions'],
         parameters: [
@@ -166,7 +166,7 @@ class TransactionController extends ApiController
     }
 
     #[OA\Put(
-        path: '/api/v1/transactions/{id}',
+        path: '/transactions/{id}',
         summary: 'Update a specific transaction',
         tags: ['Transactions'],
         parameters: [
@@ -251,7 +251,7 @@ class TransactionController extends ApiController
     }
 
     #[OA\Delete(
-        path: '/api/v1/transactions/{id}',
+        path: '/transactions/{id}',
         summary: 'Delete a specific transaction',
         tags: ['Transactions'],
         parameters: [
