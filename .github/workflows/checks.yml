@@ -81,5 +81,8 @@ jobs:
       - name: Run migrations
         run: php artisan migrate --seed
 
+      - name: Generate swagger documentation
+        run: composer openapi
+
       - name: Run tests
         run: php artisan test
