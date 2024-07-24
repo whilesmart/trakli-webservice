@@ -15,12 +15,13 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'amount', type: 'number', format: 'float', description: 'Amount of the income'),
         new OA\Property(property: 'description', type: 'string', description: 'Description of the income'),
         new OA\Property(property: 'date', type: 'string', format: 'date', description: 'Date of the income'),
-        new OA\Property(property: 'category_id', type: 'integer', description: 'ID of the category to which the income belongs')
+        new OA\Property(property: 'category_id', type: 'integer', description: 'ID of the category to which the income belongs'),
     ]
 )]
 class Income extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +33,8 @@ class Income extends Model
         'description',
     ];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(IncomeCategory::class);
     }
 

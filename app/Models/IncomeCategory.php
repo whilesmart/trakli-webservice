@@ -16,5 +16,6 @@ class IncomeCategory extends Model
         'name',
         'description',
     ];
+
     use HasFactory;
 }

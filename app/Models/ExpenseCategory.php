@@ -16,5 +16,6 @@ class ExpenseCategory extends Model
         'name',
         'description',
     ];
+
     use HasFactory;
 }
