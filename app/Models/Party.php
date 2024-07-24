@@ -12,12 +12,13 @@ use OpenApi\Attributes as OA;
     properties: [
         new OA\Property(property: 'id', type: 'integer', description: 'ID of the party'),
         new OA\Property(property: 'name', type: 'string', description: 'Name of the party'),
-        new OA\Property(property: 'description', type: 'string', description: 'Description of the party')
+        new OA\Property(property: 'description', type: 'string', description: 'Description of the party'),
     ]
 )]
 class Party extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *

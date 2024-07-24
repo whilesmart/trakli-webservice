@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\API\ApiController;
 use App\Models\Wallet;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
 /**
@@ -33,12 +33,13 @@ class WalletController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function index(): JsonResponse
     {
         $wallets = Wallet::paginate(20);
+
         return $this->success($wallets);
     }
 
@@ -53,7 +54,7 @@ class WalletController extends ApiController
                 properties: [
                     new OA\Property(property: 'name', type: 'string', example: 'Personal Cash'),
                     new OA\Property(property: 'type', type: 'string', example: 'cash'),
-                    new OA\Property(property: 'user_id', type: 'integer', example: 1)
+                    new OA\Property(property: 'user_id', type: 'integer', example: 1),
                 ]
             )
         ),
@@ -74,7 +75,7 @@ class WalletController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function store(Request $request): JsonResponse
@@ -82,10 +83,11 @@ class WalletController extends ApiController
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string',
-            'user_id' => 'required|integer|exists:users,id'
+            'user_id' => 'required|integer|exists:users,id',
         ]);
 
         $wallet = Wallet::create($validatedData);
+
         return $this->success($wallet, 'Wallet created successfully', 201);
     }
 
@@ -99,7 +101,7 @@ class WalletController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -118,14 +120,14 @@ class WalletController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function show(int $id): JsonResponse
     {
         $wallet = Wallet::find($id);
 
-        if (!$wallet) {
+        if (! $wallet) {
             return $this->failure('Wallet not found', 404);
         }
 
@@ -142,7 +144,7 @@ class WalletController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         requestBody: new OA\RequestBody(
             required: true,
@@ -150,7 +152,7 @@ class WalletController extends ApiController
                 properties: [
                     new OA\Property(property: 'name', type: 'string', example: 'Updated Wallet'),
                     new OA\Property(property: 'type', type: 'string', example: 'bank'),
-                    new OA\Property(property: 'user_id', type: 'integer', example: 1)
+                    new OA\Property(property: 'user_id', type: 'integer', example: 1),
                 ]
             )
         ),
@@ -175,21 +177,21 @@ class WalletController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function update(Request $request, int $id): JsonResponse
     {
         $wallet = Wallet::find($id);
 
-        if (!$wallet) {
+        if (! $wallet) {
             return $this->failure('Wallet not found', 404);
         }
 
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:255',
             'type' => 'sometimes|string',
-            'user_id' => 'sometimes|integer|exists:users,id'
+            'user_id' => 'sometimes|integer|exists:users,id',
         ]);
 
         $wallet->update($validatedData);
@@ -207,7 +209,7 @@ class WalletController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -225,14 +227,14 @@ class WalletController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function destroy(int $id): JsonResponse
     {
         $wallet = Wallet::find($id);
 
-        if (!$wallet) {
+        if (! $wallet) {
             return $this->failure('Wallet not found', 404);
         }
 

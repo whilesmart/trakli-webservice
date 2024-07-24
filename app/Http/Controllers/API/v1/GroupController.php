@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\API\ApiController;
 use App\Models\Group;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 
@@ -30,12 +30,13 @@ class GroupController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function index(): JsonResponse
     {
         $groups = Group::paginate(20);
+
         return $this->success($groups);
     }
 
@@ -52,7 +53,7 @@ class GroupController extends ApiController
                         property: 'name',
                         type: 'string',
                         description: 'Name of the group'
-                    )
+                    ),
                 ]
             )
         ),
@@ -69,7 +70,7 @@ class GroupController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function store(Request $request): JsonResponse
@@ -83,6 +84,7 @@ class GroupController extends ApiController
         }
 
         $group = Group::create($validator->validated());
+
         return $this->success($group, 'Group created successfully', 201);
     }
 
@@ -97,7 +99,7 @@ class GroupController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'integer'),
                 description: 'ID of the group'
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -112,14 +114,14 @@ class GroupController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function show(int $id): JsonResponse
     {
         $group = Group::find($id);
 
-        if (!$group) {
+        if (! $group) {
             return $this->failure('Group not found', 404);
         }
 
@@ -137,7 +139,7 @@ class GroupController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'integer'),
                 description: 'ID of the group'
-            )
+            ),
         ],
         requestBody: new OA\RequestBody(
             required: true,
@@ -147,7 +149,7 @@ class GroupController extends ApiController
                         property: 'name',
                         type: 'string',
                         description: 'Name of the group'
-                    )
+                    ),
                 ]
             )
         ),
@@ -168,7 +170,7 @@ class GroupController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function update(Request $request, int $id): JsonResponse
@@ -183,11 +185,12 @@ class GroupController extends ApiController
 
         $group = Group::find($id);
 
-        if (!$group) {
+        if (! $group) {
             return $this->failure('Group not found', 404);
         }
 
         $group->update($validator->validated());
+
         return $this->success($group, 'Group updated successfully');
     }
 
@@ -202,7 +205,7 @@ class GroupController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'integer'),
                 description: 'ID of the group'
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -216,18 +219,19 @@ class GroupController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function destroy(int $id): JsonResponse
     {
         $group = Group::find($id);
 
-        if (!$group) {
+        if (! $group) {
             return $this->failure('Group not found', 404);
         }
 
         $group->delete();
+
         return $this->success(null, 'Group deleted successfully', 204);
     }
 }

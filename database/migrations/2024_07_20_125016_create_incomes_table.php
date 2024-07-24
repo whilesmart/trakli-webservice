@@ -16,7 +16,7 @@ return new class extends Migration
             $table->datetime('date');
             $table->float('amount');
             $table->text('description');
-            $table->unsignedBigInteger('wallet_id'); 
+            $table->unsignedBigInteger('wallet_id');
             $table->unsignedBigInteger('party_id')->nullable();
             $table->unsignedBigInteger('income_category_id')->nullable();
             $table->timestamps();

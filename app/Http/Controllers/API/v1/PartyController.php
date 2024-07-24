@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\API\ApiController;
 use App\Models\Party;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
 /**
@@ -33,12 +33,13 @@ class PartyController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function index(): JsonResponse
     {
         $parties = Party::paginate(20);
+
         return $this->success($parties);
     }
 
@@ -52,7 +53,7 @@ class PartyController extends ApiController
                 required: ['name'],
                 properties: [
                     new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-                    new OA\Property(property: 'user_id', type: 'integer', example: 1)
+                    new OA\Property(property: 'user_id', type: 'integer', example: 1),
                 ]
             )
         ),
@@ -73,17 +74,18 @@ class PartyController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function store(Request $request): JsonResponse
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'user_id' => 'required|integer|exists:users,id'
+            'user_id' => 'required|integer|exists:users,id',
         ]);
 
         $party = Party::create($validatedData);
+
         return $this->success($party, 'Party created successfully', 201);
     }
 
@@ -97,7 +99,7 @@ class PartyController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -116,14 +118,14 @@ class PartyController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function show(int $id): JsonResponse
     {
         $party = Party::find($id);
 
-        if (!$party) {
+        if (! $party) {
             return $this->failure('Party not found', 404);
         }
 
@@ -140,14 +142,14 @@ class PartyController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(property: 'name', type: 'string', example: 'Jane Doe'),
-                    new OA\Property(property: 'user_id', type: 'integer', example: 1)
+                    new OA\Property(property: 'user_id', type: 'integer', example: 1),
                 ]
             )
         ),
@@ -172,20 +174,20 @@ class PartyController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function update(Request $request, int $id): JsonResponse
     {
         $party = Party::find($id);
 
-        if (!$party) {
+        if (! $party) {
             return $this->failure('Party not found', 404);
         }
 
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'user_id' => 'sometimes|integer|exists:users,id'
+            'user_id' => 'sometimes|integer|exists:users,id',
         ]);
 
         $party->update($validatedData);
@@ -203,7 +205,7 @@ class PartyController extends ApiController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -221,14 +223,14 @@ class PartyController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Server error'
-            )
+            ),
         ]
     )]
     public function destroy(int $id): JsonResponse
     {
         $party = Party::find($id);
 
-        if (!$party) {
+        if (! $party) {
             return $this->failure('Party not found', 404);
         }
 

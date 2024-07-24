@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\API\ApiController;
-use App\Models\IncomeCategory;
 use App\Models\ExpenseCategory;
-use Illuminate\Http\Request;
+use App\Models\IncomeCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 
@@ -24,7 +24,7 @@ class TransactionCategoryController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense']),
                 description: 'Type of the category (income or expense)'
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -35,7 +35,7 @@ class TransactionCategoryController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function index(Request $request): JsonResponse
@@ -63,7 +63,7 @@ class TransactionCategoryController extends ApiController
                 required: ['type', 'name'],
                 properties: [
                     new OA\Property(property: 'type', type: 'string', enum: ['income', 'expense'], description: 'Type of the category'),
-                    new OA\Property(property: 'name', type: 'string', description: 'Name of the category')
+                    new OA\Property(property: 'name', type: 'string', description: 'Name of the category'),
                 ]
             )
         ),
@@ -80,7 +80,7 @@ class TransactionCategoryController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function store(Request $request): JsonResponse
@@ -124,7 +124,7 @@ class TransactionCategoryController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense']),
                 description: 'Type of the category (income or expense)'
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -139,7 +139,7 @@ class TransactionCategoryController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function show(Request $request, int $id): JsonResponse
@@ -154,7 +154,7 @@ class TransactionCategoryController extends ApiController
             return $this->failure('Invalid category type', 400);
         }
 
-        if (!$category) {
+        if (! $category) {
             return $this->failure('Category not found', 404);
         }
 
@@ -179,13 +179,13 @@ class TransactionCategoryController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense']),
                 description: 'Type of the category (income or expense)'
-            )
+            ),
         ],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
                 properties: [
-                    new OA\Property(property: 'name', type: 'string', description: 'Name of the category')
+                    new OA\Property(property: 'name', type: 'string', description: 'Name of the category'),
                 ]
             )
         ),
@@ -206,7 +206,7 @@ class TransactionCategoryController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function update(Request $request, int $id): JsonResponse
@@ -231,11 +231,12 @@ class TransactionCategoryController extends ApiController
             return $this->failure('Invalid category type', 400);
         }
 
-        if (!$category) {
+        if (! $category) {
             return $this->failure('Category not found', 404);
         }
 
         $category->update(['name' => $data['name']]);
+
         return $this->success($category, 'Category updated successfully');
     }
 
@@ -257,7 +258,7 @@ class TransactionCategoryController extends ApiController
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense']),
                 description: 'Type of the category (income or expense)'
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -275,7 +276,7 @@ class TransactionCategoryController extends ApiController
             new OA\Response(
                 response: 500,
                 description: 'Internal server error'
-            )
+            ),
         ]
     )]
     public function destroy(Request $request, int $id): JsonResponse
@@ -290,11 +291,12 @@ class TransactionCategoryController extends ApiController
             return $this->failure('Invalid category type', 400);
         }
 
-        if (!$category) {
+        if (! $category) {
             return $this->failure('Category not found', 404);
         }
 
         $category->delete();
+
         return $this->success(null, 'Category deleted successfully', 204);
     }
 }

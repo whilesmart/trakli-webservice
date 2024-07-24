@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\API\ApiController;
-use App\Models\Income;
 use App\Models\Expense;
-use Illuminate\Http\Request;
+use App\Models\Income;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 
@@ -24,7 +24,7 @@ class TransactionController extends ApiController
                 description: 'Type of transaction (income/expense)',
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense'])
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -35,7 +35,7 @@ class TransactionController extends ApiController
             new OA\Response(
                 response: 400,
                 description: 'Invalid transaction type'
-            )
+            ),
         ]
     )]
     public function index(Request $request): JsonResponse
@@ -43,7 +43,7 @@ class TransactionController extends ApiController
         $type = $request->query('type');
 
         // Validate transaction type
-        if (!in_array($type, ['income', 'expense'])) {
+        if (! in_array($type, ['income', 'expense'])) {
             return $this->failure('Invalid transaction type', 400);
         }
 
@@ -70,7 +70,7 @@ class TransactionController extends ApiController
                     new OA\Property(property: 'description', type: 'string'),
                     new OA\Property(property: 'wallet_id', type: 'integer'),
                     new OA\Property(property: 'amount', type: 'number', format: 'float'),
-                    new OA\Property(property: 'group_id', type: 'integer')
+                    new OA\Property(property: 'group_id', type: 'integer'),
                 ]
             )
         ),
@@ -83,7 +83,7 @@ class TransactionController extends ApiController
             new OA\Response(
                 response: 400,
                 description: 'Invalid input'
-            )
+            ),
         ]
     )]
     public function store(Request $request): JsonResponse
@@ -128,7 +128,7 @@ class TransactionController extends ApiController
                 description: 'Type of transaction (income/expense)',
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense'])
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -143,14 +143,14 @@ class TransactionController extends ApiController
             new OA\Response(
                 response: 400,
                 description: 'Invalid transaction type'
-            )
+            ),
         ]
     )]
     public function show($id, Request $request): JsonResponse
     {
         $type = $request->query('type');
 
-        if (!in_array($type, ['income', 'expense'])) {
+        if (! in_array($type, ['income', 'expense'])) {
             return $this->failure('Invalid transaction type', 400);
         }
 
@@ -158,7 +158,7 @@ class TransactionController extends ApiController
             ? Income::find($id)
             : Expense::find($id);
 
-        if (!$transaction) {
+        if (! $transaction) {
             return $this->failure('Transaction not found', 404);
         }
 
@@ -183,7 +183,7 @@ class TransactionController extends ApiController
                 description: 'Type of transaction (income/expense)',
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense'])
-            )
+            ),
         ],
         requestBody: new OA\RequestBody(
             required: true,
@@ -195,7 +195,7 @@ class TransactionController extends ApiController
                     new OA\Property(property: 'description', type: 'string'),
                     new OA\Property(property: 'wallet_id', type: 'integer'),
                     new OA\Property(property: 'amount', type: 'number', format: 'float'),
-                    new OA\Property(property: 'group_id', type: 'integer')
+                    new OA\Property(property: 'group_id', type: 'integer'),
                 ]
             )
         ),
@@ -212,14 +212,14 @@ class TransactionController extends ApiController
             new OA\Response(
                 response: 400,
                 description: 'Invalid input'
-            )
+            ),
         ]
     )]
     public function update(Request $request, $id): JsonResponse
     {
         $type = $request->query('type');
 
-        if (!in_array($type, ['income', 'expense'])) {
+        if (! in_array($type, ['income', 'expense'])) {
             return $this->failure('Invalid transaction type', 400);
         }
 
@@ -241,7 +241,7 @@ class TransactionController extends ApiController
             ? Income::find($id)
             : Expense::find($id);
 
-        if (!$transaction) {
+        if (! $transaction) {
             return $this->failure('Transaction not found', 404);
         }
 
@@ -268,7 +268,7 @@ class TransactionController extends ApiController
                 description: 'Type of transaction (income/expense)',
                 required: true,
                 schema: new OA\Schema(type: 'string', enum: ['income', 'expense'])
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -282,14 +282,14 @@ class TransactionController extends ApiController
             new OA\Response(
                 response: 400,
                 description: 'Invalid transaction type'
-            )
+            ),
         ]
     )]
     public function destroy($id, Request $request): JsonResponse
     {
         $type = $request->query('type');
 
-        if (!in_array($type, ['income', 'expense'])) {
+        if (! in_array($type, ['income', 'expense'])) {
             return $this->failure('Invalid transaction type', 400);
         }
 
@@ -297,7 +297,7 @@ class TransactionController extends ApiController
             ? Income::find($id)
             : Expense::find($id);
 
-        if (!$transaction) {
+        if (! $transaction) {
             return $this->failure('Transaction not found', 404);
         }
 
