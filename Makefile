@@ -22,7 +22,7 @@ EXTRA_UP_INFO = \
 	echo "  SmartQL:    http://localhost:$$SMARTQL_PORT" && \
 	echo "  MySQL:      localhost:$$FORWARD_DB_PORT"
 
-TEST_CMD = php artisan test --coverage
+TEST_CMD = php -d memory_limit=512M artisan test --coverage
 LINT_CMD = sh -c "composer phpcs:test && composer phpmd && composer pint:test && composer openapi:test"
 
 # ──────────────────────────────────────────────

@@ -420,20 +420,21 @@ class CategoriesTest extends TestCase
         $user = User::factory()->create();
 
         // Create first category
-        $this->actingAs($user)->postJson('/api/v1/categories', [
+        $first = $this->actingAs($user)->postJson('/api/v1/categories', [
             'type' => 'expense',
             'name' => 'Test Category',
             'description' => 'description',
         ]);
 
-        // Attempt to create duplicate
+        // Attempt to create duplicate returns the existing category
         $response = $this->actingAs($user)->postJson('/api/v1/categories', [
             'type' => 'expense',
             'name' => 'Test Category',
             'description' => 'description',
         ]);
 
-        $response->assertStatus(400);
+        $response->assertStatus(200)
+            ->assertJsonPath('data.id', $first->json('data.id'));
     }
 
     public function test_api_user_can_update_their_expense_categories_with_client_id()
